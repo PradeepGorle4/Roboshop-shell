@@ -29,7 +29,7 @@ else
     echo -e "$G You are root user $N" 
 fi
 
-dnf module disable nodejs -y &>> $LOGFILE
+dnf module nodejs -y &>> $LOGFILE
 VALIDATE "Disabling Current NodeJS"
 
 dnf module enable nodejs:18 -y &>> $LOGFILE
@@ -38,10 +38,10 @@ VALIDATE "Enabling NodeJS:18"
 dnf install nodejs -y &>> $LOGFILE
 VALIDATE "Installing Node JS 18"
 
-useradd roboshop
+useradd roboshop &>> $LOGFILE
 VALIDATE "Creating roboshop user"
 
-mkdir /app
+mkdir /app &>> $LOGFILE
 VALIDATE "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
