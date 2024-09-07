@@ -77,3 +77,4 @@ VALIDATE "Installing Mongodb client"
 mongo --host mongodb.pradeepdevops.online </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE "Loading Catalogue data into MongoDB"
 
+#END
