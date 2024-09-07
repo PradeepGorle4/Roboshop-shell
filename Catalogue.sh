@@ -38,10 +38,10 @@ VALIDATE "Enabling NodeJS:18"
 dnf install nodejs -y &>> $LOGFILE
 VALIDATE "Installing Node JS 18"
 
-useradd roboshop &>> $LOGFILE
+useradd roboshop
 VALIDATE "Creating roboshop user"
 
-mkdir /app &>> $LOGFILE
+mkdir /app
 VALIDATE "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
