@@ -29,52 +29,64 @@ else
     echo -e "$G You are root user $N" 
 fi
 
-dnf module nodejs -y &>> $LOGFILE
-VALIDATE "Disabling Current NodeJS"
+dnf module disable nodejs -y &>> $LOGFILE
+
+VALIDATE "Disabling current NodeJS"
 
 dnf module enable nodejs:18 -y &>> $LOGFILE
-VALIDATE "Enabling NodeJS:18" 
+
+VALIDATE "Enabling NodeJS:18"
 
 dnf install nodejs -y &>> $LOGFILE
-VALIDATE "Installing Node JS 18"
+
+VALIDATE "Installing NodeJS"
 
 useradd roboshop &>> $LOGFILE
+
 VALIDATE "Creating roboshop user"
 
 mkdir /app &>> $LOGFILE
+
 VALIDATE "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
-VALIDATE "Downloading the catalog package"
+
+VALIDATE "downloading the roboshop file"
 
 cd /app
 
 unzip /tmp/catalogue.zip &>> $LOGFILE
-VALIDATE "UnZipping catalogue"
+
+VALIDATE "Unzipping catalogue"
 
 npm install &>> $LOGFILE
-VALIDATE "Installing NodeJS Dependencies"
 
-# Always use absolute path to avoid confusion.
+VALIDATE "Installing NodeJS dependencies"
+
 cp /home/centos/Roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
-VALIDATE "Copying catalogue.service file" 
+
+VALIDATE "Copying catalogue service file"
 
 systemctl daemon-reload &>> $LOGFILE
-VALIDATE "Reloading Catalogue daemon"
+
+VALIDATE "Reloading catalogue daemon"
 
 systemctl enable catalogue &>> $LOGFILE
-VALIDATE "Enabling Catalogue"
+
+VALIDATE "Enabling catalogue service"
 
 systemctl start catalogue &>> $LOGFILE
-VALIDATE "Starting Catalogue"
 
-cp /home/centos/Roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
-VALIDATE "Copying mongo.repo to yum.repos.d"
+VALIDATE "Starting catalogue service"
+
+cp /home/centos/Roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $
+
+VALIDATE "copying mongodb repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
-VALIDATE "Installing Mongodb client"
+
+VALIDATE "Installing mongodb client to load the data"
 
 mongo --host mongodb.pradeepdevops.online </app/schema/catalogue.js &>> $LOGFILE
-VALIDATE "Loading Catalogue data into MongoDB"
 
-#END
+VALIDATE "Loading the data to MongoDB"
