@@ -51,8 +51,4 @@ VALIDATE "Starting mysql service"
 
 mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOGFILE
 
-VALIDATE "chainging the default password"
-
-mysql -uroot -pRoboShop@1 &>> $LOGFILE
-
-VALIDATE "Verifying new password"
+VALIDATE "setting mysql password"
